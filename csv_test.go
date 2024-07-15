@@ -24,3 +24,12 @@ func TestCsvUtil_LoadFile(t *testing.T) {
 		t.Log("success", len(items))
 	}
 }
+
+func TestCsvUtil_hasBom(t *testing.T) {
+	file := "./data/_Test.csv"
+	if b, err := hasBOM(file); err != nil {
+		t.Error(err)
+	} else {
+		t.Log("file is bom?", b)
+	}
+}

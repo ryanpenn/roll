@@ -12,7 +12,6 @@ import (
 )
 
 type csvUtil struct {
-	file             string
 	rawData          [][]string
 	headers          []string
 	tagMap           map[string]int
@@ -186,7 +185,7 @@ func isPointerSlice(slicePointer interface{}) bool {
 	return rt.Kind() == reflect.Slice && rt.Elem().Kind() == reflect.Ptr
 }
 
-// hasBOM 检查文件是否包含 UTF-8 BOM。
+// hasBOM 检查文件是否包含 UTF-8 BOM
 func hasBOM(filePath string) (bool, error) {
 	f, err := os.Open(filePath)
 	if err != nil {

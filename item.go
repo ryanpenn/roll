@@ -33,19 +33,20 @@ var (
 )
 
 func init() {
+	initItems()
+	initRoles()
+	initWeapons()
+}
+
+func initItems() {
+	// item data
 	itemList, err := LoadFile[*Item]("data/Item.csv", "json")
 	if err != nil {
 		panic(err)
 	}
 
-	initItems(itemList)
-	initRoles()
-	initWeapons()
-}
-
-func initItems(list []*Item) {
 	itemMap = make(map[int64]*Item)
-	for _, v := range list {
+	for _, v := range itemList {
 		itemMap[v.ItemId] = v
 	}
 }

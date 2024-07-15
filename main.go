@@ -7,9 +7,6 @@ import (
 )
 
 func main() {
-	// dropList := []*Drop{}
-	// GetCsvUtilMgr().LoadCsv("data/Drop", dropList)
-
 	var times int
 	flag.IntVar(&times, "t", 0, "-t=10")
 	flag.Parse()
