@@ -1,0 +1,4 @@
+TestId,TestType,TestName,TestValues,TestFeatures
+1000001,1,原萃树脂(体力),"1,2,3,4,5","Hello,Hi,World"
+1000002,1,摩拉(金币),"3,4,5","Hi"
+1000003,1,原石(钻石),"1,3,5",""
