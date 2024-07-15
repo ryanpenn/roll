@@ -8,14 +8,21 @@ type (
 	}
 
 	Role struct {
-		RoleId int64 // 物品ID
-		Star   int   // 星级
+		RoleId          int64 `json:"RoleId"` // 物品ID
+		Star            int   `json:"Star"`   // 星级
+		Stuff           int   `json:"Stuff"`
+		StuffNum        int64 `json:"StuffNum"`
+		StuffItem       int   `json:"StuffItem"`
+		StuffItemNum    int64 `json:"StuffItemNum"`
+		MaxStuffItem    int   `json:"MaxStuffItem"`
+		MaxStuffItemNum int64 `json:"MaxStuffItemNum"`
+		Type            int   `json:"Type"`
 	}
 
 	Weapon struct {
-		WeaponId int64 // 物品ID
-		Type     int   // 武器类别，如：双手剑
-		Star     int   // 星级
+		WeaponId int64 `json:"WeaponId"` // 物品ID
+		Type     int   `json:"Type"`     // 武器类别，如：双手剑
+		Star     int   `json:"Star"`     // 星级
 	}
 )
 
@@ -32,8 +39,8 @@ func init() {
 	}
 
 	initItems(itemList)
-	initRoles(itemList)
-	initWeapons(itemList)
+	initRoles()
+	initWeapons()
 }
 
 func initItems(list []*Item) {
@@ -43,48 +50,29 @@ func initItems(list []*Item) {
 	}
 }
 
-func initRoles(list []*Item) {
-	// mock role data
-	roleMap = make(map[int64]*Role)
-	start := 3
-	for _, v := range list {
-		if v.ItemId > 2000000 && v.ItemId < 3000000 {
-			if v.ItemId > 2000000 && v.ItemId <= 2000006 {
-				start = 5
-			} else if v.ItemId > 2000006 && v.ItemId <= 2000030 {
-				start = 4
-			} else {
-				start = 3
-			}
+func initRoles() {
+	// role data
+	roleList, err := LoadFile[*Role]("data/Role.csv", "json")
+	if err != nil {
+		panic(err)
+	}
 
-			roleMap[v.ItemId] = &Role{
-				RoleId: v.ItemId,
-				Star:   start,
-			}
-		}
+	roleMap = make(map[int64]*Role)
+	for _, v := range roleList {
+		roleMap[v.RoleId] = v
 	}
 }
 
-func initWeapons(list []*Item) {
-	// mock weapon data
-	weaponMap = make(map[int64]*Weapon)
-	start := 3
-	for _, v := range list {
-		if v.ItemId > 6000000 && v.ItemId < 7000000 {
-			if v.ItemId == 6000002 {
-				start = 4
-			} else if v.ItemId == 6000003 {
-				start = 5
-			} else {
-				start = 3
-			}
+func initWeapons() {
+	// weapon data
+	weaponList, err := LoadFile[*Weapon]("data/Weapon.csv", "json")
+	if err != nil {
+		panic(err)
+	}
 
-			weaponMap[v.ItemId] = &Weapon{
-				WeaponId: v.ItemId,
-				Type:     1,
-				Star:     start,
-			}
-		}
+	weaponMap = make(map[int64]*Weapon)
+	for _, v := range weaponList {
+		weaponMap[v.WeaponId] = v
 	}
 }
 
